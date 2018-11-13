@@ -3,8 +3,9 @@ package ohtu;
 import java.util.ArrayList;
 
 public class Submission {
-    private int week;
-    private int hours;
+    private int week = 0;
+    private int hours = 0;
+    private int sum = 0; 
     private ArrayList <Integer> exercises = new ArrayList<>();
     private String course;
 
@@ -32,7 +33,11 @@ public class Submission {
         return hours;
     }
     
-    public int getExercises() {
+    public ArrayList getExercises() {
+        return exercises;
+    }
+    
+    public int exercisesDone(){
         return exercises.size();
     }
     
@@ -40,9 +45,9 @@ public class Submission {
         return course;
     }
 
-    @Override
-    public String toString() {
-        return course+", viikko " +week+ " tehtyjä tehtäviä yhteensä " +exercises.size()+ " aikaa kului " +hours+ " tehdyt tehtävät: " +exercises.toString().replace("[","").replace("]","");
-    }
+    //@Override
+    //public String toString() {
+    //    return "viikko " +week+":\n\t tehtyjä tehtäviä " +exercises.size()+ "/"  course+", viikko " " tehtyjä tehtäviä yhteensä "  " aikaa kului " +hours+ " tehdyt tehtävät: " +exercises.toString().replace("[","").replace("]","");
+    //}
     
 }
