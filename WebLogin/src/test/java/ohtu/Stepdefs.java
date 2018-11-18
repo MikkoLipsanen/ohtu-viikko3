@@ -69,7 +69,42 @@ public class Stepdefs {
         pageHasContent("Give your credentials to login");
     } 
     
+    @Given("^command new user is selected$")
+    public void new_user_selected() throws Throwable {
+        driver.get(baseUrl);
+        WebElement element = driver.findElement(By.linkText("register new user"));       
+        element.click();          
+    } 
 
+    @When("^a valid username \"([^\"]*)\" and password \"([^\"]*)\" and matching password confirmation are entered$")
+    public void username_valid_and_password_are_entered(String username, String password) throws Throwable {
+        createNewUser(username, password);
+    }
+    
+    @Then("^a new user is created$")
+    public void new_user_is_created() throws Throwable {
+        pageHasContent("Welcome to Ohtu Application!");
+    }
+    
+     @When("^a too short username \"([^\"]*)\" and password \"([^\"]*)\" and matching password confirmation are entered$")
+    public void too_short_username_and_password_are_entered(String username, String password) throws Throwable {
+        createNewUser(username, password);
+    }
+    
+    @Then("^user is not created and error is reported$")
+    public void user_is_not_created() throws Throwable {
+        pageHasContent("username should have at least 3 characters");
+    }
+    
+    @When("^a valid username \"([^\"]*)\" and too short password \"([^\"]*)\" and matching password confirmation are entered$")
+    public void username_and_too_short_password_are_entered(String username, String password) throws Throwable {
+        createNewUser(username, password);
+    }
+    
+    @Then("^user is not created and invalid password error is reported$")
+    public void user_is_not_created2() throws Throwable {
+        pageHasContent("password should have at least 8 characters");
+    }
     
     @After
     public void tearDown(){
@@ -89,6 +124,18 @@ public class Stepdefs {
         element = driver.findElement(By.name("password"));
         element.sendKeys(password);
         element = driver.findElement(By.name("login"));
+        element.submit();  
+    } 
+    
+     private void createNewUser(String username, String password) {
+        assertTrue(driver.getPageSource().contains("Create username and give password"));
+        WebElement element = driver.findElement(By.name("username"));
+        element.sendKeys(username);
+        element = driver.findElement(By.name("password"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("passwordConfirmation"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("signup"));
         element.submit();  
     } 
 }
