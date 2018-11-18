@@ -2,6 +2,8 @@ package ohtu.io;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
+
 
 public class StubIO implements IO {
 
